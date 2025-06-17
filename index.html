@@ -1,9 +1,440 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>LL Dynamics</title>
-  </head>
-    <body>
-      <p>Diese Seite befindet sich zurzeit in Arbeit!</p>
-    </body>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>LL Dynamics – Unternehmensberatung</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LL Dynamics – Moderne Unternehmensberatung für Start-ups und Mittelstand. Prozessoptimierung, Sales & Marketing, individuelle Lösungen.">
+    <style>
+    @font-face {
+        font-family: 'Lato';
+        src: url('/fonts/Lato-Regular.woff2') format('woff2'),
+             url('/fonts/Lato-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    @font-face {
+        font-family: 'Lato';
+        src: url('/fonts/Lato-Bold.woff2') format('woff2'),
+             url('/fonts/Lato-Bold.woff') format('woff');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    html, body {
+        font-family: 'Lato', Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f7fa;
+        color: #0c2433;
+    }
+    header {
+        background: #0c2433;
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+        animation: fadeDown 1s ease;
+    }
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-30px);}
+        to { opacity: 1; transform: translateY(0);}
+    }
+    .nav {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 20px 18px 20px;
+    }
+    .logo-area {
+        display: flex;
+        align-items: center;
+    }
+    .logo-img {
+        width: 48px;
+        height: 48px;
+        margin-right: 14px;
+    }
+    .logo-title {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        margin-left: 24px;
+        font-size: 1.1rem;
+        transition: color 0.2s;
+        position: relative;
+    }
+    nav a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #10c0c9;
+        transition: width .3s;
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+    }
+    nav a:hover, nav a.active {
+        color: #10c0c9;
+    }
+    nav a:hover::after, nav a.active::after {
+        width: 100%;
+    }
+    .hero {
+        max-width: 960px;
+        margin: 38px auto 0 auto;
+        padding: 0 20px 60px 20px;
+        opacity: 0;
+        transform: translateY(40px);
+        animation: fadeUp 1.1s 0.2s forwards;
+    }
+    @keyframes fadeUp {
+        to { opacity: 1; transform: translateY(0);}
+    }
+    .hero h1 {
+        font-size: 2.7em;
+        font-weight: 700;
+        margin: 0 0 20px 0;
+        color: #0c2433;
+        line-height: 1.15;
+    }
+    .hero p {
+        font-size: 1.25em;
+        color: #233d4d;
+        margin-bottom: 38px;
+        max-width: 700px;
+    }
+    .cta-btn {
+        background: #10c0c9;
+        color: #fff;
+        padding: 15px 38px;
+        border-radius: 6px;
+        font-size: 1.15em;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 12px rgba(16,192,201,0.08);
+        transition: background 0.2s, color 0.2s, transform 0.2s;
+        text-decoration: none;
+    }
+    .cta-btn:hover {
+        background: #0c2433;
+        color: #10c0c9;
+        border: 1px solid #10c0c9;
+        transform: scale(1.04);
+    }
+    section {
+        max-width: 960px;
+        margin: 0 auto 50px auto;
+        padding: 0 20px;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.8s, transform 0.8s;
+    }
+    section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .section-title {
+        font-size: 1.6em;
+        color: #10c0c9;
+        margin-bottom: 18px;
+        font-weight: 700;
+    }
+    .features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 28px;
+    }
+    .feature-box {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 8px rgba(12,36,51,0.06);
+        padding: 28px 22px;
+        flex: 1 1 260px;
+        min-width: 220px;
+        max-width: 320px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s, transform 0.8s;
+    }
+    .feature-box.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .feature-box h3 {
+        margin: 0 0 10px 0;
+        font-size: 1.15em;
+        color: #0c2433;
+    }
+    .feature-box p {
+        margin: 0;
+        color: #455a64;
+        font-size: 1em;
+    }
+    .why-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 0 0;
+    }
+    .why-list li {
+        margin-bottom: 12px;
+        font-size: 1.07em;
+        display: flex;
+        align-items: center;
+        opacity: 0;
+        transform: translateX(-30px);
+        transition: opacity 0.7s, transform 0.7s;
+    }
+    .why-list li.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    .why-icon {
+        width: 18px;
+        height: 18px;
+        background: #10c0c9;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 12px;
+    }
+    .steps {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+    .step-box {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 1px 8px rgba(12,36,51,0.06);
+        padding: 24px 18px;
+        flex: 1 1 220px;
+        min-width: 180px;
+        max-width: 270px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s, transform 0.8s;
+    }
+    .step-box.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .step-number {
+        background: #10c0c9;
+        color: #fff;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15em;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    .step-title {
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #0c2433;
+    }
+    .contact-box {
+        background: #0c2433;
+        color: #fff;
+        border-radius: 8px;
+        padding: 32px 22px;
+        margin-bottom: 38px;
+        box-shadow: 0 1px 8px rgba(12,36,51,0.10);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s, transform 0.8s;
+    }
+    .contact-box.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .contact-box strong {
+        font-size: 1.15em;
+        color: #10c0c9;
+    }
+    .contact-details {
+        margin: 18px 0 0 0;
+        font-size: 1.07em;
+        line-height: 1.7;
+    }
+    .legal {
+        text-align: center;
+        font-size: 0.97em;
+        margin: 22px 0 10px 0;
+    }
+    .legal a {
+        color: #10c0c9;
+        text-decoration: none;
+        margin: 0 10px;
+    }
+    .legal a:hover {
+        text-decoration: underline;
+    }
+    .footer {
+        text-align: center;
+        font-size: 0.93em;
+        color: #b0c4ce;
+        margin-bottom: 18px;
+    }
+    @media (max-width: 800px) {
+        .features, .steps {
+            flex-direction: column;
+            gap: 16px;
+        }
+        .nav, .hero, section {
+            padding-left: 7px;
+            padding-right: 7px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <div class="logo-area">
+                <img src="logo.png" alt="LL Dynamics Logo" class="logo-img">
+                <span class="logo-title">LL Dynamics</span>
+            </div>
+            <nav>
+                <a href="#leistungen" class="menu-link">Leistungen</a>
+                <a href="#vorteile" class="menu-link">Vorteile</a>
+                <a href="#prozess" class="menu-link">Prozess</a>
+                <a href="#kontakt" class="menu-link">Kontakt</a>
+            </nav>
+        </div>
+    </header>
+    <div class="hero">
+        <h1>Wir bringen Unternehmen in Bewegung.</h1>
+        <p>
+            LL Dynamics ist Ihre moderne Unternehmensberatung für Start-ups und Mittelstand. Mit innovativen Ansätzen, persönlicher Partnerschaft und dynamischer Expertise unterstützen wir Sie dabei, Prozesse zu optimieren, nachhaltige Lösungen zu entwickeln und Ihr Unternehmen erfolgreich in die Zukunft zu führen.
+        </p>
+        <a href="#kontakt" class="cta-btn">Jetzt Kontakt aufnehmen</a>
+    </div>
+
+    <section id="leistungen">
+        <div class="section-title">Unsere Leistungen</div>
+        <div class="features">
+            <div class="feature-box">
+                <h3>Prozessoptimierung</h3>
+                <p>Effiziente Abläufe, klare Strukturen und messbare Ergebnisse für nachhaltigen Unternehmenserfolg.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Sales &amp; Marketing</h3>
+                <p>Zielgerichtete Strategien und Umsetzung für Wachstum und Sichtbarkeit am Markt.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Unternehmensberatung</h3>
+                <p>Individuelle Lösungen, die wirklich zu Ihnen passen – partnerschaftlich, dynamisch, modern.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="vorteile">
+        <div class="section-title">Warum LL Dynamics?</div>
+        <ul class="why-list">
+            <li><span class="why-icon"></span><strong>Dynamisch:</strong> Wir bringen frische Energie und Bewegung in Ihr Unternehmen.</li>
+            <li><span class="why-icon"></span><strong>Innovativ:</strong> Wir denken voraus und setzen auf zukunftsorientierte Lösungen.</li>
+            <li><span class="why-icon"></span><strong>Vertrauenswürdig:</strong> Persönliche Beratung auf Augenhöhe, mit Handschlagqualität.</li>
+        </ul>
+    </section>
+
+    <section id="prozess">
+        <div class="section-title">So arbeiten wir</div>
+        <div class="steps">
+            <div class="step-box">
+                <div class="step-number">1</div>
+                <div class="step-title">Analyse</div>
+                <div>Wir hören zu, stellen die richtigen Fragen und analysieren Ihre Situation.</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">2</div>
+                <div class="step-title">Lösung</div>
+                <div>Wir entwickeln maßgeschneiderte, praxisnahe Konzepte.</div>
+            </div>
+            <div class="step-box">
+                <div class="step-number">3</div>
+                <div class="step-title">Umsetzung</div>
+                <div>Wir begleiten Sie aktiv bis zum Erfolg.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt">
+        <div class="contact-box">
+            <strong>Kontaktieren Sie uns</strong>
+            <div class="contact-details">
+                E-Mail: <a href="mailto:leon@lldynamics.de" style="color:#10c0c9;">leon@lldynamics.de</a><br>
+            </div>
+        </div>
+    </section>
+
+    <div class="legal">
+        <a href="/impressum">Impressum</a> | <a href="/datenschutz">Datenschutz</a>
+    </div>
+    <div class="footer">
+        © 2025 LL Dynamics. Alle Rechte vorbehalten.
+    </div>
+
+    <script>
+        // Höhe des fixierten Headers (ggf. anpassen)
+        const headerHeight = document.querySelector('header').offsetHeight;
+
+        // Smooth Scroll mit Offset für alle Menü-Links
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    const elementPosition = targetEl.getBoundingClientRect().top + window.pageYOffset;
+                    window.scrollTo({
+                        top: elementPosition - headerHeight + 1,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation beim Scrollen für Abschnitte
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('section, .feature-box, .step-box, .why-list li, .contact-box');
+            const windowHeight = window.innerHeight;
+            for (let el of reveals) {
+                const top = el.getBoundingClientRect().top;
+                if (top < windowHeight - 60) {
+                    el.classList.add('visible');
+                }
+            }
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Menü-Highlight beim Scrollen
+        const menuLinks = document.querySelectorAll('.menu-link');
+        const sections = ['leistungen', 'vorteile', 'prozess', 'kontakt'].map(id => document.getElementById(id));
+        window.addEventListener('scroll', () => {
+            let fromTop = window.scrollY + headerHeight + 10;
+            let current = sections.find(sec => sec.offsetTop <= fromTop && sec.offsetTop + sec.offsetHeight > fromTop);
+            menuLinks.forEach(link => link.classList.remove('active'));
+            if (current) {
+                document.querySelector('nav a[href="#'+current.id+'"]').classList.add('active');
+            }
+        });
+    </script>
+</body>
 </html>
